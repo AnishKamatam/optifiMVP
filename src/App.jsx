@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAuth } from './context/AuthContext'
 import AuthModal from './components/AuthModal'
 import './App.css'
@@ -6,7 +6,10 @@ import './App.css'
 function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false)
   const [authMode, setAuthMode] = useState('login')
+  const [pricingPeriod, setPricingPeriod] = useState('monthly')
+  const [animatedPrices, setAnimatedPrices] = useState({})
   const { user, signOut, loading } = useAuth()
+  const animationRefs = useRef({})
 
   const handleLoginClick = () => {
     setAuthMode('login')
@@ -20,6 +23,87 @@ function App() {
 
   const handleSignOut = async () => {
     await signOut()
+  }
+
+  const handlePricingToggle = (period) => {
+    setPricingPeriod(period)
+    // Trigger count-up animation for all prices
+    Object.keys(pricingData[period]).forEach(plan => {
+      const price = pricingData[period][plan].price
+      if (typeof price === 'number') {
+        animatePrice(plan, price)
+      }
+    })
+  }
+
+  const animatePrice = (plan, targetPrice) => {
+    const duration = 300 // Animation duration in milliseconds
+    const steps = 15 // Number of steps in the animation
+    const stepDuration = duration / steps
+    let currentStep = 0
+
+    const animate = () => {
+      currentStep++
+      const progress = currentStep / steps
+      const currentPrice = Math.floor(targetPrice * progress)
+      
+      setAnimatedPrices(prev => ({
+        ...prev,
+        [plan]: currentPrice
+      }))
+
+      if (currentStep < steps) {
+        setTimeout(animate, stepDuration)
+      } else {
+        // Ensure final price is exact
+        setAnimatedPrices(prev => ({
+          ...prev,
+          [plan]: targetPrice
+        }))
+      }
+    }
+
+    animate()
+  }
+
+  // Initialize animated prices
+  useEffect(() => {
+    const initialPrices = {}
+    Object.keys(pricingData[pricingPeriod]).forEach(plan => {
+      const price = pricingData[pricingPeriod][plan].price
+      if (typeof price === 'number') {
+        initialPrices[plan] = price
+      }
+    })
+    setAnimatedPrices(initialPrices)
+  }, [])
+
+  // Pricing data
+  const pricingData = {
+    monthly: {
+      free: { price: 0, period: 'per month' },
+      starter: { price: 49, period: 'per month' },
+      growth: { price: 199, period: 'per month' },
+      enterprise: { price: 'Custom', period: 'starts at $499/month' }
+    },
+    yearly: {
+      free: { price: 0, period: 'per year' },
+      starter: { price: 470, period: 'per year', savings: 118 },
+      growth: { price: 1910, period: 'per year', savings: 478 },
+      enterprise: { price: 'Custom', period: 'annual pricing' }
+    }
+  }
+
+  const getCurrentPricing = (plan) => {
+    return pricingData[pricingPeriod][plan]
+  }
+
+  const getDisplayPrice = (plan) => {
+    const pricing = getCurrentPricing(plan)
+    if (typeof pricing.price === 'number') {
+      return animatedPrices[plan] || pricing.price
+    }
+    return pricing.price
   }
 
   if (loading) {
@@ -141,8 +225,18 @@ function App() {
             <p className="pricing-description">Designed for every stage of your journey.</p>
             
             <div className="pricing-toggle">
-              <button className="toggle-btn active">Monthly</button>
-              <button className="toggle-btn">Yearly</button>
+              <button 
+                className={`toggle-btn ${pricingPeriod === 'monthly' ? 'active' : ''}`}
+                onClick={() => handlePricingToggle('monthly')}
+              >
+                Monthly
+              </button>
+              <button 
+                className={`toggle-btn ${pricingPeriod === 'yearly' ? 'active' : ''}`}
+                onClick={() => handlePricingToggle('yearly')}
+              >
+                Yearly
+              </button>
             </div>
           </div>
           
@@ -152,8 +246,8 @@ function App() {
                 <h3 className="plan-name">Free</h3>
               </div>
               <div className="plan-price">
-                <span className="price">$0</span>
-                <span className="period">per month</span>
+                <span className="price">${getDisplayPrice('free')}</span>
+                <span className="period">{getCurrentPricing('free').period}</span>
               </div>
               <button className="plan-button primary">Get Started</button>
               <ul className="plan-features">
@@ -171,8 +265,11 @@ function App() {
                 <h3 className="plan-name">Starter</h3>
               </div>
               <div className="plan-price">
-                <span className="price">$49</span>
-                <span className="period">per month</span>
+                <span className="price">${getDisplayPrice('starter')}</span>
+                <span className="period">{getCurrentPricing('starter').period}</span>
+                {pricingPeriod === 'yearly' && getCurrentPricing('starter').savings && (
+                  <div className="savings-badge">Saves ${getCurrentPricing('starter').savings}/year</div>
+                )}
               </div>
               <button className="plan-button outline">Subscribe</button>
               <ul className="plan-features">
@@ -192,8 +289,11 @@ function App() {
                 <h3 className="plan-name">Growth</h3>
               </div>
               <div className="plan-price">
-                <span className="price">$199</span>
-                <span className="period">per month</span>
+                <span className="price">${getDisplayPrice('growth')}</span>
+                <span className="period">{getCurrentPricing('growth').period}</span>
+                {pricingPeriod === 'yearly' && getCurrentPricing('growth').savings && (
+                  <div className="savings-badge">Saves ${getCurrentPricing('growth').savings}/year</div>
+                )}
               </div>
               <button className="plan-button primary">Subscribe</button>
               <ul className="plan-features">
@@ -213,8 +313,8 @@ function App() {
                 <h3 className="plan-name">Enterprise</h3>
               </div>
               <div className="plan-price">
-                <span className="price">Custom</span>
-                <span className="period">starts at $499/month</span>
+                <span className="price">{getCurrentPricing('enterprise').price}</span>
+                <span className="period">{getCurrentPricing('enterprise').period}</span>
               </div>
               <button className="plan-button outline">Contact Sales</button>
               <ul className="plan-features">
