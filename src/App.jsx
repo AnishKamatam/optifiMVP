@@ -57,7 +57,7 @@ function App() {
                 Login
               </button>
               <button className="signup-btn" onClick={handleSignupClick}>
-                Sign Up
+                Request Demo
               </button>
             </>
           )}
@@ -83,13 +83,12 @@ function App() {
         <div className="features-container">
           <div className="features-header">
           <div className="features-header-left">
-            <span className="features-label">Highlights</span>
-            <h2 className="features-title">The complete platform for<br />AI support agents</h2>
+            <span className="features-label">Features</span>
+            <h2 className="features-title">The agentic ERP that transforms your business</h2>
           </div>
           <div className="features-header-right">
             <p className="features-description">
-              OPTIFI is designed for building AI support agents that solve your 
-              customers' hardest problems while improving business outcomes.
+              Intelligent automation that understands your business, streamlines every department, and evolves as your needs change.
             </p>
           </div>
         </div>
@@ -131,6 +130,104 @@ function App() {
             </ul>
           </div>
         </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="pricing-section">
+        <div className="pricing-container">
+          <div className="pricing-header">
+            <h2 className="pricing-title">Predictable pricing<br />scalable plans</h2>
+            <p className="pricing-description">Designed for every stage of your journey.</p>
+            
+            <div className="pricing-toggle">
+              <button className="toggle-btn active">Monthly</button>
+              <button className="toggle-btn">Yearly</button>
+            </div>
+          </div>
+          
+          <div className="pricing-grid">
+            <div className="pricing-card">
+              <div className="card-header">
+                <h3 className="plan-name">Free</h3>
+              </div>
+              <div className="plan-price">
+                <span className="price">$0</span>
+                <span className="period">per month</span>
+              </div>
+              <button className="plan-button primary">Get Started</button>
+              <ul className="plan-features">
+                <li>Access to 1 ERP module (Finance OR Operations)</li>
+                <li>Up to 3 seats</li>
+                <li>Basic AI automations (10/month)</li>
+                <li>1 GB data storage</li>
+                <li>Standard reports</li>
+                <li>Community support</li>
+              </ul>
+            </div>
+
+            <div className="pricing-card">
+              <div className="card-header">
+                <h3 className="plan-name">Starter</h3>
+              </div>
+              <div className="plan-price">
+                <span className="price">$49</span>
+                <span className="period">per month</span>
+              </div>
+              <button className="plan-button outline">Subscribe</button>
+              <ul className="plan-features">
+                <li>Everything in Free +</li>
+                <li>Access to 3 ERP modules (Finance, Operations, HR)</li>
+                <li>Up to 10 seats</li>
+                <li>Unlimited basic AI automations</li>
+                <li>5 advanced automations/month</li>
+                <li>10 GB data storage</li>
+                <li>Automated weekly reports</li>
+              </ul>
+            </div>
+
+            <div className="pricing-card popular">
+              <div className="popular-badge">Popular</div>
+              <div className="card-header">
+                <h3 className="plan-name">Growth</h3>
+              </div>
+              <div className="plan-price">
+                <span className="price">$199</span>
+                <span className="period">per month</span>
+              </div>
+              <button className="plan-button primary">Subscribe</button>
+              <ul className="plan-features">
+                <li>Everything in Starter +</li>
+                <li>All ERP modules included</li>
+                <li>Up to 25 seats</li>
+                <li>Unlimited advanced automations</li>
+                <li>Predictive forecasting & analytics dashboard</li>
+                <li>50 GB data storage</li>
+                <li>Automated custom workflows</li>
+                <li>Priority support</li>
+              </ul>
+            </div>
+
+            <div className="pricing-card">
+              <div className="card-header">
+                <h3 className="plan-name">Enterprise</h3>
+              </div>
+              <div className="plan-price">
+                <span className="price">Custom</span>
+                <span className="period">starts at $499/month</span>
+              </div>
+              <button className="plan-button outline">Contact Sales</button>
+              <ul className="plan-features">
+                <li>Everything in Growth +</li>
+                <li>Unlimited seats</li>
+                <li>Custom AI model fine-tuning</li>
+                <li>Dedicated account manager</li>
+                <li>API & custom integrations (Salesforce, SAP, NetSuite, etc.)</li>
+                <li>On-premise or private cloud deployment</li>
+                <li>SLA-backed uptime</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
