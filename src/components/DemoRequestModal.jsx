@@ -85,7 +85,6 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   required
-                  placeholder="Enter your first name"
                 />
               </div>
               
@@ -97,7 +96,6 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   required
-                  placeholder="Enter your last name"
                 />
               </div>
 
@@ -109,7 +107,6 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                   required
-                  placeholder="Enter your company name"
                 />
               </div>
               
@@ -121,7 +118,6 @@ const DemoRequestModal = ({ isOpen, onClose }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  placeholder="Enter your email address"
                 />
               </div>
               
