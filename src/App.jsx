@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { useAuth } from './context/AuthContext'
 import AuthModal from './components/AuthModal'
+import DemoRequestModal from './components/DemoRequestModal'
 import './App.css'
 
 function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false)
+  const [demoModalOpen, setDemoModalOpen] = useState(false)
   const [authMode, setAuthMode] = useState('login')
   const [pricingPeriod, setPricingPeriod] = useState('monthly')
   const [animatedPrices, setAnimatedPrices] = useState({})
@@ -19,6 +21,10 @@ function App() {
   const handleSignupClick = () => {
     setAuthMode('signup')
     setAuthModalOpen(true)
+  }
+
+  const handleDemoRequestClick = () => {
+    setDemoModalOpen(true)
   }
 
   const handleSignOut = async () => {
@@ -140,7 +146,7 @@ function App() {
               <button className="login-btn" onClick={handleLoginClick}>
                 Login
               </button>
-              <button className="signup-btn" onClick={handleSignupClick}>
+              <button className="signup-btn" onClick={handleDemoRequestClick}>
                 Request Demo
               </button>
             </>
@@ -153,7 +159,7 @@ function App() {
         <div className="hero-left">
           <h1 className="hero-headline">An ERP That Works for You, Not the Other Way Around</h1>
           <p className="hero-subheading">Replace dozens of tools and manual processes with one autonomous system that works like a full-time team.</p>
-          <button className="request-demo-btn">Request Demo</button>
+          <button className="request-demo-btn" onClick={handleDemoRequestClick}>Request Demo</button>
         </div>
         <div className="hero-right">
           <div className="hero-visual">
@@ -335,6 +341,11 @@ function App() {
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
         mode={authMode}
+      />
+      
+      <DemoRequestModal
+        isOpen={demoModalOpen}
+        onClose={() => setDemoModalOpen(false)}
       />
     </div>
   )

@@ -7,6 +7,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+  const [companyName, setCompanyName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [currentMode, setCurrentMode] = useState(mode)
@@ -20,6 +21,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
     setPassword('')
     setFirstName('')
     setLastName('')
+    setCompanyName('')
   }, [mode])
 
   const { signIn, signUp } = useAuth()
@@ -34,7 +36,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
       if (currentMode === 'login') {
         result = await signIn(email, password)
       } else {
-        result = await signUp(email, password)
+        result = await signUp(email, password, firstName, lastName, companyName)
       }
 
       if (result.error) {
@@ -45,6 +47,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
         setPassword('')
         setFirstName('')
         setLastName('')
+        setCompanyName('')
       }
     } catch (err) {
       setError('An unexpected error occurred')
@@ -88,6 +91,17 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
                   id="lastName"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="companyName">Company Name</label>
+                <input
+                  type="text"
+                  id="companyName"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
                   required
                 />
               </div>

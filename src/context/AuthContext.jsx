@@ -32,12 +32,46 @@ export const AuthProvider = ({ children }) => {
     return () => subscription.unsubscribe()
   }, [])
 
-  const signUp = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
-    return { data, error }
+  const signUp = async (email, password, firstName, lastName, companyName) => {
+    try {
+      // First, create the user account
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+      })
+
+      if (authError) {
+        return { data: null, error: authError }
+      }
+
+      // If user creation successful, store additional profile data
+      if (authData.user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([
+            {
+              id: authData.user.id,
+              first_name: firstName,
+              last_name: lastName,
+              company_name: companyName,
+              email: email,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            }
+          ])
+
+        if (profileError) {
+          console.error('Error storing profile data:', profileError)
+          // Note: We don't return error here as the user account was created successfully
+          // The profile data can be stored later if needed
+        }
+      }
+
+      return { data: authData, error: null }
+    } catch (error) {
+      console.error('Sign up error:', error)
+      return { data: null, error: { message: 'An unexpected error occurred during sign up' } }
+    }
   }
 
   const signIn = async (email, password) => {
