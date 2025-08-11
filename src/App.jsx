@@ -337,6 +337,54 @@ function App() {
         </div>
       </section>
 
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-container">
+          <div className="footer-grid">
+            <div className="footer-brand">
+              <div className="footer-logo">OPTIFI</div>
+              <p className="footer-copyright">© {new Date().getFullYear()} OPTIFI, Inc.</p>
+              
+              
+            </div>
+
+            <div className="footer-columns">
+              <div className="footer-col">
+                <h4>Product</h4>
+                <ul>
+                  <li><a href="#">Customer Service</a></li>
+                  <li><a href="#pricing">Pricing</a></li>
+                  <li><a href="#">Security</a></li>
+                  <li><a href="#">Affiliates</a></li>
+                </ul>
+              </div>
+              <div className="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                  <li><a href="#contact">Contact us</a></li>
+                  <li><a href="#">API</a></li>
+                  <li><a href="#">Guide</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Changelog</a></li>
+                </ul>
+              </div>
+              <div className="footer-col">
+                <h4>Company</h4>
+                <ul>
+                  <li><a href="#">Careers</a></li>
+                  <li><a href="#">Privacy policy</a></li>
+                  <li><a href="#">Terms of service</a></li>
+                  <li><a href="#">DPA</a></li>
+                  <li><a href="#">Cookie policy</a></li>
+                  <li><a href="#">Trust center</a></li>
+                  <li><a href="#">Cookie preferences</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
