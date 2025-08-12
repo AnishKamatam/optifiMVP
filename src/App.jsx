@@ -3,6 +3,7 @@ import { useAuth } from './context/AuthContext'
 import AuthModal from './components/AuthModal'
 import DemoRequestModal from './components/DemoRequestModal'
 import './App.css'
+import OrgSwitcher from './components/OrgSwitcher'
 
 function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false)
@@ -134,6 +135,9 @@ function App() {
           <a href="#contact">Contact</a>
         </nav>
         <div className="auth-buttons">
+          {user && (
+            <OrgSwitcher />
+          )}
           {user ? (
             <>
               <span className="user-email">Welcome, {user.email}</span>
