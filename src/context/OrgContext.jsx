@@ -7,6 +7,7 @@ export const OrgProvider = ({ children }) => {
   const { user } = useAuth()
   const [organizations, setOrganizations] = useState([])
   const [currentOrgId, setCurrentOrgId] = useState(null)
+  const [currentRole, setCurrentRole] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -21,19 +22,40 @@ export const OrgProvider = ({ children }) => {
     setError('')
     try {
       // Fetch orgs for the current user via membership
-      const { data, error: qError } = await supabase
+      // 1) Fetch memberships
+      const { data: members, error: qError } = await supabase
         .from('org_members')
-        .select('org_id, organizations:org_id ( id, name )')
+        .select('org_id, role')
         .eq('user_id', user.id)
 
       if (qError) throw qError
 
-      const orgs = (data || []).map((row) => ({ id: row.organizations?.id, name: row.organizations?.name })).filter(Boolean)
+      const orgIds = (members || []).map(m => m.org_id)
+
+      // 2) Fetch organizations in a separate query to avoid relation embedding issues
+      let orgRows = []
+      if (orgIds.length > 0) {
+        const { data: orgsData, error: orgErr } = await supabase
+          .from('organizations')
+          .select('id, name')
+          .in('id', orgIds)
+        if (orgErr) throw orgErr
+        orgRows = orgsData || []
+      }
+
+      const idToRole = new Map((members || []).map(m => [m.org_id, m.role]))
+      const orgs = orgRows.map(o => ({ id: o.id, name: o.name, role: idToRole.get(o.id) }))
       setOrganizations(orgs)
 
       // Pick first org if none selected
       if (!currentOrgId && orgs.length > 0) {
         setCurrentOrgId(orgs[0].id)
+        setCurrentRole(orgs[0].role)
+      }
+      // Sync role when current org changes
+      if (currentOrgId) {
+        const found = orgs.find(o => o.id === currentOrgId)
+        setCurrentRole(found?.role || null)
       }
     } catch (e) {
       // Silently ignore if schema isn't set up yet
@@ -59,8 +81,9 @@ export const OrgProvider = ({ children }) => {
           .single()
         if (orgErr) throw orgErr
         await supabase.from('org_members').insert({ org_id: org.id, user_id: user.id, role: 'owner' })
-        setOrganizations((prev) => [...prev, { id: org.id, name: org.name }])
+        setOrganizations((prev) => [...prev, { id: org.id, name: org.name, role: 'owner' }])
         setCurrentOrgId(org.id)
+        setCurrentRole('owner')
         return { data: org, error: null }
       }
 
@@ -84,11 +107,12 @@ export const OrgProvider = ({ children }) => {
     organizations,
     currentOrgId,
     setCurrentOrgId,
+    currentRole,
     loading,
     error,
     refresh: loadOrganizations,
     createOrganization,
-  }), [organizations, currentOrgId, loading, error, loadOrganizations, createOrganization])
+  }), [organizations, currentOrgId, currentRole, loading, error, loadOrganizations, createOrganization])
 
   return (
     <OrgContext.Provider value={value}>{children}</OrgContext.Provider>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 import './AuthModal.css'
 
 const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
@@ -25,6 +27,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
   }, [mode])
 
   const { signIn, signUp } = useAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -48,6 +51,9 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
         setFirstName('')
         setLastName('')
         setCompanyName('')
+
+        // Navigate to dashboard after auth
+        navigate('/dashboard', { replace: true })
       }
     } catch (err) {
       setError('An unexpected error occurred')

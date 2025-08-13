@@ -30,6 +30,7 @@ function App() {
 
   const handleSignOut = async () => {
     await signOut()
+    window.location.href = '/'
   }
 
   const handlePricingToggle = (period) => {
