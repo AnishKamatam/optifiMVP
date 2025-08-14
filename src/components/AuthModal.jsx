@@ -121,6 +121,7 @@ const AuthModal = ({ isOpen, onClose, mode = 'login' }) => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoFocus
               required
             />
           </div>
