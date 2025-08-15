@@ -25,6 +25,26 @@
 .dash-status-dot { width: 8px; height: 8px; background: #12b76a; border-radius: 999px; display: inline-block; margin-right: 6px; }
 .dash-signout { margin-left: 12px; padding: 6px 10px; border: 1px solid #0f1720; background: #0f1720; color: #fff; border-radius: 6px; cursor: pointer; }
 
+/* Soften header button borders */
+.dash-header .logout-btn {
+  border-width: 1px;
+  border-color: #d1d5db; /* light gray */
+}
+
+.bo { display: grid; gap: 0.5rem; margin-top: 0.25rem; }
+.bo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.bo-card { background: #fff; border: 1px solid #eceff3; border-radius: 16px; padding: 1.25rem; box-shadow: 0 1px 0 rgba(0,0,0,0.03); font-family: inherit; min-height: 150px; }
+.bo-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.bo-label { font-size: 16px; font-weight: 600; font-family: inherit; }
+.bo-ico { width: 34px; height: 34px; border-radius: 12px; background: #f2f4f7; display: grid; place-items: center; color: #0f1720; }
+.bo-ico-green { background: #ecfdf3; color: #12b76a; }
+.bo-ico-red { background: #fef2f2; color: #ef4444; }
+.bo-value { font-size: 36px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; font-family: inherit; }
+.bo-trend { font-size: 14px; font-family: inherit; }
+.bo-up { color: #12b76a; }
+.bo-down { color: #ef4444; }
+.bo-muted { color: #667085; margin-left: 6px; }
+
 .overview { display: grid; gap: 1rem; }
 .overview-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 .kpi-card { background: #fff; border: 1px solid #eceff3; border-radius: 16px; padding: 1.25rem; box-shadow: 0 1px 0 rgba(0,0,0,0.03); }

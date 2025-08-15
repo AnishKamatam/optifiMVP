@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { DollarSign, Building2, Calculator, LayoutDashboard, Settings } from 'lucide-react'
+import { DollarSign, Building2, Calculator, LayoutDashboard, Settings, FolderOpen } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useOrg } from '../context/OrgContextCore'
 import { supabase } from '../lib/supabase'
@@ -100,6 +100,14 @@ const Sidebar = () => {
         </a>
 
         {!loading && modules.map(code => renderItem(code, false))}
+
+        <a className="sb-item" href="/dashboard/files">
+          <div className="sb-item-text">
+            <div className="sb-title">File Management</div>
+            <div className="sb-sub">Upload & Manage Files</div>
+          </div>
+          <div className="sb-right-ico"><FolderOpen size={18} /></div>
+        </a>
 
         <a className="sb-item" href="/dashboard/settings">
           <div className="sb-item-text">

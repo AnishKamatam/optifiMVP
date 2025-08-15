@@ -1,0 +1,257 @@
+.csv-modal {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+.csv-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 0 24px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 24px;
+}
+
+.csv-modal-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.csv-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.csv-close-btn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.csv-modal-body {
+  padding: 0 24px 24px 24px;
+  min-height: 200px;
+}
+
+.csv-dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 48px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+.csv-dropzone:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.csv-upload-icon {
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.csv-dropzone-text {
+  font-size: 16px;
+  color: #475569;
+  margin: 0 0 8px 0;
+}
+
+.csv-browse {
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+.csv-dropzone-hint {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.csv-file-info {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  background: #f8fafc;
+}
+
+.csv-file-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: #1e293b;
+}
+
+.csv-file-details {
+  flex: 1;
+}
+
+.csv-filename {
+  font-weight: 500;
+  margin: 0 0 4px 0;
+  color: #1e293b;
+}
+
+.csv-filesize {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.csv-preview {
+  margin-top: 20px;
+}
+
+.csv-preview h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+
+.csv-table-container {
+  max-height: 200px;
+  overflow: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.csv-preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.csv-preview-table td {
+  padding: 8px 12px;
+  border-right: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+  background: white;
+}
+
+.csv-header-row td {
+  background: #f8fafc;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.csv-success {
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.csv-success-icon {
+  color: #22c55e;
+  margin-bottom: 16px;
+}
+
+.csv-success h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.csv-success p {
+  color: #64748b;
+  margin: 0;
+}
+
+.csv-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+.csv-progress {
+  margin-top: 20px;
+}
+
+.csv-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.csv-progress-fill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.csv-progress p {
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+  margin: 0;
+}
+
+.csv-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 24px 24px 24px;
+  border-top: 1px solid #f1f5f9;
+  margin-top: 24px;
+  padding-top: 24px;
+}
+
+.csv-btn {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.csv-btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.csv-btn-secondary:hover {
+  background: #e2e8f0;
+}
+
+.csv-btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.csv-btn-primary:hover {
+  background: #2563eb;
+}
+
+.csv-btn-primary:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
